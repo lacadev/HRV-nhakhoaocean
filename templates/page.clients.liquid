@@ -1,0 +1,228 @@
+<div class="layout-clients">
+	{%if settings.show_clients_header%}
+	<section class="section-breadcrumb" style="--bg-breadcrumb: url({{ 'clients_header_img.jpg' | asset_url}})">
+		{% include 'breadcrumb'%}
+		<div class="container breadcrumb-content">
+			<h1 class="title">{{page.title}}</h1>
+			{%if settings.clients_header_desc != ''%}<p class="desc">{{settings.clients_header_desc}}</p>{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_clients_about%}
+	<section class="section-clients-about">
+		<div class="container">
+			<div class="heading-title wow fadeIn">
+				{%if settings.clients_about_title_1 != ''%}<p class="title1">{{settings.clients_about_title_1}}</p>{%endif%}
+				{%if settings.clients_about_title_2 != ''%}<h2 class="title2">{{settings.clients_about_title_2}}</h2>{%endif%}
+				{%if settings.clients_about_desc != ''%}<p class="desc">{{settings.clients_about_desc | newline_to_br}}</p>{%endif%}
+			</div>
+			<div class="row list-about">
+				{%for i in (1..6)%}
+				{%capture show%}show_clients_about_{{i}}{%endcapture%}
+				{%capture img%}clients_about_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}clients_about_{{i}}_title{%endcapture%}
+				{%capture desc%}clients_about_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				<div class="about-item">
+					<div class="item-icon">
+						<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+					</div>
+					<div class="item-detail">
+						<h3 class="title">{{settings[title]}}</h3>
+						{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_clients_form_1%}
+	<section class="section-clients-form-1">
+		<div class="container">
+			<div class="newsletter-form form-contact">
+				<h2 class="title">{{settings.clients_form_1_title}}</h2>
+				{%if settings.clients_form_1_desc != ''%}<p class="desc">{{settings.clients_form_1_desc}}</p>{%endif%}
+				{%- form 'customer' -%}
+				{%- if form.posted_successfully? -%}<p id="newsletter-success" class="d-none popup-form-success success">Cám ơn bạn đã đăng ký email theo dõi!</p>{% endif %}
+				<div class="form-group input-group">
+					<input type="hidden" id="newsletter-tags" name="contact[tags]" value="Đăng kí nhận tin" />     
+					<input required type="email" name="contact[email]" class="form-control newsletter-input" id="newsletter-email" 
+								 pattern="^(.)+@[A-Za-z0-9]([A-Za-z0-9.\-]*[A-Za-z0-9])?\.[A-Za-z]{1,13}$" placeholder="Nhập email của bạn" aria-label="Email Address">
+					<div class="input-group-btn"><button type="submit"  class="button dark cta-submitform newsletter-btn">{{settings.clients_form_1_btn}}</button></div>
+				</div>
+				<div class="sitebox-recaptcha d-none" >
+					This site is protected by reCAPTCHA and the Google
+					<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+					and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+				</div>	
+				{%- endform -%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_clients_review%}
+	<section class="section-clients-review">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-9 col-12">
+					<div class="heading-title">
+						{%if settings.clients_review_title_1 != ''%}<p class="title1">{{settings.clients_review_title_1}}</p>{%endif%}
+						{%if settings.clients_review_title_2 != ''%}<h2 class="title2">{{settings.clients_review_title_2}}</h2>{%endif%}
+					</div>
+				</div>
+				{%if settings.clients_review_btn != ''%}
+				<div class="col-lg-3 col-12 btn-pc">
+					<div class="btn-more text-right">
+						<a href="{{settings.clients_review_link}}" class="button">{{settings.clients_review_btn}}</a>
+					</div>
+				</div>
+				{%endif%}
+			</div>
+			<div class="list-review owl-carousel">
+				{%for i in (1..10)%}
+				{%capture show%}show_clients_review_{{i}}{%endcapture%}
+				{%capture img%}clients_review_{{i}}_img.jpg{%endcapture%}
+				{%capture name%}clients_review_{{i}}_name{%endcapture%}
+				{%capture position%}clients_review_{{i}}_position{%endcapture%}
+				{%capture desc%}clients_review_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				<div class="review-item">
+					<div class="item-top">
+						<div class="item-img">
+							<img src="{{ img | asset_url}}" alt="{{settings[name]}}" />
+						</div>
+						<div class="item-info">
+							<p class="name">{{settings[name]}}</p>
+							<p class="position">{{settings[position]}}</p>
+						</div>
+					</div>
+					<div class="item-bottom">
+						{{settings[desc]}}
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			{%if settings.clients_review_btn != ''%}
+			<div class="btn-more btn-mb text-center">
+				<a href="{{settings.clients_review_link}}" class="button">{{settings.clients_review_btn}}</a>
+			</div>
+			{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_clients_counter%}
+	<section class="section-clients-counter">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-12">
+					<div class="heading-title">
+						{%if settings.clients_counter_title_1 != ''%}<p class="title1">{{settings.clients_counter_title_1}}</p>{%endif%}
+						{%if settings.clients_counter_title_2 != ''%}<h2 class="title2">{{settings.clients_counter_title_2}}</h2>{%endif%}
+						{%if settings.clients_counter_desc != ''%}<p class="desc">{{settings.clients_counter_desc}}</p>{%endif%}
+					</div>
+				</div>
+			</div>
+			<div class="row row-counter">
+				{%assign time2 = 0.2%}
+				{%for i in (1..4)%}
+				{%capture show%}show_clients_counter_{{i}}{%endcapture%}
+				{%capture img%}clients_counter_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}clients_counter_{{i}}_title{%endcapture%}
+				{%capture num%}clients_counter_{{i}}_num{%endcapture%}
+				{%if settings[show]%}
+				{%assign time2 = time2 | plus: 0.1%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time2}}s">
+					<div class="counter-item">
+						<div class="item-num">
+							<div aria-valuenow="{{settings[num]}}" aria-valuemin="0" aria-valuemax="100" style="--value: {{settings[num]}}" class="progressbar"></div>
+							<div class="item-icon">
+								<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+							</div>
+						</div>
+						<div class="item-detail">
+							<p class="num">{{settings[num]}}%</p>
+							<p class="title">{{settings[title]}}</p>
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_clients_form%}
+	<section class="section-clients-form-2">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7 col-12 form-left wow fadeIn" data-wow-delay="0.5s">
+					<div class="banner-img">
+						<img src="{{ 'clients_form_img.jpg' | asset_url}}" alt="{{settings.clients_form_title_2}}" />
+					</div>
+				</div>
+				<div class="col-lg-5 col-12 form-right wow fadeIn" data-wow-delay="0.8s">
+					<div class="heading-title">
+						{%if settings.clients_form_title_1 != ''%}<p class="title1">{{settings.clients_form_title_1}}</p>{%endif%}
+						{%if settings.clients_form_title_2 != ''%}<h2 class="title2">{{settings.clients_form_title_2}}</h2>{%endif%}
+						{%if settings.clients_form_desc != ''%}<p class="desc">{{settings.clients_form_desc | newline_to_br}}</p>{%endif%}
+					</div>
+					<div class="form-booking">
+						<form id="form-booking-clients" class="formbooking" action="{{settings.clients_gg_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.clients_form_booking_2}}" data-harasocial="{{settings.clients_form_harasocial_link}}" data-success="{{ settings.clients_form_success | newline_to_br}}">
+							<div class="contact-form">
+								<div class="row">
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="full_name">{{settings.clients_form_name}} <span>*</span></label>
+											<input required type="text" name="{{settings.clients_gg_name}}" id="full_name" data-valid="full_name"  class="form-control" placeholder="{{settings.clients_form_name}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="full_name-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_phone">{{settings.clients_form_phone}} <span>*</span></label>
+											<input pattern="[0-9]{10,12}" required type="text" name="{{settings.clients_gg_phone}}" id="your_phone" data-valid="your_phone" class="form-control" placeholder="{{settings.clients_form_phone}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_phone-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_email">{{settings.clients_form_email}}</label>
+											<input required type="text" name="{{settings.clients_gg_email}}" id="your_email" data-valid="your_email" class="form-control" placeholder="{{settings.clients_form_email}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_email-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_date">{{settings.clients_form_date}}</label>
+											<input required type="date" name="{{settings.clients_gg_date}}" id="your_date" data-valid="your_date"  class="form-control" placeholder="{{settings.clients_form_date}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_date-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="addcart-area">						
+											<button type="button" class="button btn-send"> 
+												{{settings.clients_form_booking}}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+</div>
+
+
+
+
+
+
+
+

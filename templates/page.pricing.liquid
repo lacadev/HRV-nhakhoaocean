@@ -1,0 +1,162 @@
+<div class="layout-pricing">
+	{%if settings.show_pricing_header%}
+	<section class="section-breadcrumb" style="--bg-breadcrumb: url({{ 'pricing_header_img.jpg' | asset_url}})">
+		{% include 'breadcrumb'%}
+		<div class="container breadcrumb-content">
+			<h1 class="title">{{page.title}}</h1>
+			{%if settings.pricing_header_desc != ''%}<p class="desc">{{settings.pricing_header_desc}}</p>{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_pricing_2%}
+	<section class="section-pricing-2 wow fadeIn" data-wow-delay="0.3s">
+		<div class="container">
+			<div class="heading-title">
+				{%if settings.pricing_2_title_1 != ''%}<p class="title1">{{settings.pricing_2_title_1}}</p>{%endif%}
+				{%if settings.pricing_2_title_2 != ''%}<h2 class="title2">{{settings.pricing_2_title_2}}</h2>{%endif%}
+				{%if settings.pricing_2_desc != ''%}<p class="desc">{{settings.pricing_2_desc | newline_to_br}}</p>{%endif%}
+			</div>
+			{%assign tab_title = ''%}
+			{%assign tab_content = ''%}
+			{%assign count = -1 %}
+			{%for i in (1..4)%}
+			{%capture show%}show_pricing_2_{{i}}{%endcapture%}
+			{%capture show_banner%}show_pricing_2_{{i}}_banner{%endcapture%}
+			{%capture img%}pricing_2_{{i}}_img.jpg{%endcapture%}
+			{%capture title%}pricing_2_{{i}}_title{%endcapture%}
+			{%capture handle%}pricing_2_{{i}}_handle{%endcapture%}
+			{%if settings[show]%}
+			{%assign count = count | plus: 1 %}
+			{%assign col = settings[handle]%}
+			{%capture tab_title_html%}
+			<li class="nav-item">
+				<a class="nav-link {%if forloop.first%}active{%endif%}" data-index="{{count}}" data-toggle="tab" href="#pricing-tab-{{count}}">
+					{%if settings[title] != ''%}{{settings[title]}}{%else%}{{collections[col].title}}{%endif%}
+				</a>
+			</li>
+			{%endcapture%}
+			{%capture tab_content_html%}
+			<div class="tab-pane container {%if forloop.first%}active{%else%}fade{%endif%} {%if settings[show_banner]%} has-banner {%endif%}" id="pricing-tab-{{count}}">
+				{%if settings[show_banner]%}
+				<div class="row">
+					<div class="col-lg-4 col-12">
+						<div class="tab-banner text-center">
+							<img src="{{ img | asset_url}}" alt="{%if settings[title] != ''%}{{settings[title]}}{%else%}{{collections[col].title}}{%endif%}" />
+						</div>
+					</div>
+					<div class="col-lg-8 col-12">
+						<div class="row">
+							{% for product in collections[col].products limit: 6 %}
+							<div class="col-lg-6 col-12">
+								{% include 'product-loop-small' %}
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				{% if collections[col].products.size > 6 %}
+				<div class="btn-more text-center">
+					<a href="{{collections[col].url}}" class="button">Xem thêm</a>
+				</div>
+				{%endif%}
+				{%else%}
+				{% if collections[col].products.size == 0 %}
+				<div class="col-md-12 product-noloop">
+					<div class="collection-alert-no"><p>Chưa có sản phẩm nào trong danh mục này</p></div>
+				</div>
+				{% else %}
+				<div class="row">
+					{% for product in collections[col].products limit: 6 %}
+					<div class="col-lg-6 col-12">
+						{% include 'product-loop-small' %}
+					</div>
+					{% endfor %}
+				</div>
+				{% if collections[col].products.size > 6 %}
+				<div class="btn-more text-center">
+					<a href="{{collections[col].url}}" class="button">Xem thêm</a>
+				</div>
+				{%endif%}
+				{% endif %}	
+				{%endif%}
+			</div>
+			{%endcapture%}
+			{%assign tab_title = tab_title | append: tab_title_html%}
+			{%assign tab_content = tab_content | append: tab_content_html%}
+			{%endif%}
+			{%endfor%}
+			<div class="price-tab">
+				<ul class="nav nav-tabs">
+					{{tab_title}}
+				</ul>
+				<div class="tab-content">
+					{{tab_content}}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_pricing_form%}
+	<section class="section-pricing-form">
+		<div class="container">
+			<div class="row align-items-end">
+				<div class="col-lg-6 col-12 wow fadeIn" data-wow-delay="0.3s">
+					<div class="banner-img">
+						<img src="{{ 'pricing_form_img_2.jpg' | asset_url}}" alt="{{settings.pricing_form_title_2}}" />
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 wow fadeIn" data-wow-delay="0.5s">
+					<div class="heading-title">
+						{%if settings.pricing_form_title_1 != ''%}<p class="title1">{{settings.pricing_form_title_1}}</p>{%endif%}
+						{%if settings.pricing_form_title_2 != ''%}<h2 class="title2">{{settings.pricing_form_title_2}}</h2>{%endif%}
+						{%if settings.pricing_form_desc != ''%}<p class="desc">{{settings.pricing_form_desc | newline_to_br}}</p>{%endif%}
+					</div>
+					<div class="form-booking">
+						<form id="form-booking-pricing" class="formbooking" action="{{settings.pricing_gg_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.pricing_form_booking_2}}" data-harasocial="{{settings.pricing_form_harasocial_link}}" data-success="{{ settings.pricing_form_success | newline_to_br}}">
+							<div class="contact-form">
+								<div class="row">
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="full_name">{{settings.pricing_form_name}} <span>*</span></label>
+											<input required type="text" name="{{settings.pricing_gg_name}}" id="full_name" data-valid="full_name"  class="form-control" placeholder="{{settings.pricing_form_name}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="full_name-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_phone">{{settings.pricing_form_phone}} <span>*</span></label>
+											<input pattern="[0-9]{10,12}" required type="text" name="{{settings.pricing_gg_phone}}" id="your_phone" data-valid="your_phone" class="form-control" placeholder="{{settings.pricing_form_phone}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_phone-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_email">{{settings.pricing_form_email}}</label>
+											<input required type="text" name="{{settings.pricing_gg_email}}" id="your_email" data-valid="your_email" class="form-control" placeholder="{{settings.pricing_form_email}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_email-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_date">{{settings.pricing_form_date}}</label>
+											<input required type="date" name="{{settings.pricing_gg_date}}" id="your_date" data-valid="your_date"  class="form-control" placeholder="{{settings.pricing_form_date}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_date-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="addcart-area">						
+											<button type="button" class="button btn-send"> 
+												{{settings.pricing_form_booking}}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+</div>

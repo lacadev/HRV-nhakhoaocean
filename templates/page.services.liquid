@@ -1,0 +1,199 @@
+<div class="layout-services">
+	{%if settings.show_service_1%}
+	<section class="section-service-1">
+		<div class="container">
+			<div class="heading-title">
+				{%if settings.service_1_title_1 != ''%}<p class="title1">{{settings.service_1_title_1}}</p>{%endif%}
+				{%if settings.service_1_title_2 != ''%}<h2 class="title2">{{settings.service_1_title_2}}</h2>{%endif%}
+			</div>
+			<div class="row">
+				{%assign time3 = 0.3%}
+				{%for i in (1..8)%}
+				{%capture show%}show_service_1_{{i}}{%endcapture%}
+				{%capture img%}service_1_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}service_1_{{i}}_title{%endcapture%}
+				{%capture desc%}service_1_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				{%assign time3 = time3 | plus: 0.2%}
+				<div class="col-lg-3 col-12 wow fadeInUp" data-wow-delay="{{time3}}s">
+					<div class="service-item">
+						<div class="item-img">
+							<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+						</div>
+						<div class="item-detail">
+							<h3 class="title">{{settings[title]}}</h3>
+							{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_service_counter%}
+	<section class="section-service-counter">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-12">
+					<div class="heading-title">
+						{%if settings.service_counter_title_1 != ''%}<p class="title1">{{settings.service_counter_title_1}}</p>{%endif%}
+						{%if settings.service_counter_title_2 != ''%}<h2 class="title2">{{settings.service_counter_title_2}}</h2>{%endif%}
+						{%if settings.service_counter_desc != ''%}<p class="desc">{{settings.service_counter_desc| newline_to_br}}</p>{%endif%}
+					</div>
+				</div>
+			</div>
+			<div class="row list-desc">
+				{%assign time3 = 0.3%}
+				{%for i in (1..3)%}
+				{%capture desc%}service_counter_desc_{{i}}{%endcapture%}
+				{%if settings[desc] != ''%}
+				{%assign time3 = time3 | plus: 0.2%}
+				<div class="col-lg-4 col-12 desc-item wow fadeInUp" data-wow-delay="{{time3}}s">
+					{{settings[desc] | newline_to_br}}
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			<div class="row row-counter">
+				{%assign time2 = 0.2%}
+				{%for i in (1..4)%}
+				{%capture show%}show_service_counter_{{i}}{%endcapture%}
+				{%capture img%}service_counter_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}service_counter_{{i}}_title{%endcapture%}
+				{%capture num%}service_counter_{{i}}_num{%endcapture%}
+				{%if settings[show]%}
+				{%assign time2 = time2 | plus: 0.1%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time2}}s">
+					<div class="counter-item">
+						<div class="item-num">
+							<div aria-valuenow="{{settings[num]}}" aria-valuemin="0" aria-valuemax="100" style="--value: {{settings[num]}}" class="progressbar"></div>
+							<div class="item-icon">
+								<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+							</div>
+						</div>
+						<div class="item-detail">
+							<p class="num">{{settings[num]}}%</p>
+							<p class="title">{{settings[title]}}</p>
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_service_review%}
+	<section class="section-service-review">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3 col-12">
+					<div class="heading-title">
+						{%if settings.service_review_title_1 != ''%}<p class="title1">{{settings.service_review_title_1}}</p>{%endif%}
+						{%if settings.service_review_title_2 != ''%}<h2 class="title2">{{settings.service_review_title_2}}</h2>{%endif%}
+						{%if settings.service_review_desc != ''%}<p class="desc">{{settings.service_review_desc | newline_to_br}}</p>{%endif%}
+					</div>
+					{%if settings.service_review_btn != ''%}
+					<div class="btn-pc">
+						<div class="btn-more">
+							<a href="{{settings.service_review_link}}" class="button">{{settings.service_review_btn}}</a>
+						</div>
+					</div>
+					{%endif%}
+				</div>
+				<div class="col-lg-8 offset-lg-1 col-12">
+					<div class="list-review owl-carousel">
+						{%for i in (1..10)%}
+						{%capture show%}show_service_review_{{i}}{%endcapture%}
+						{%capture img%}service_review_{{i}}_img.jpg{%endcapture%}
+						{%capture name%}service_review_{{i}}_name{%endcapture%}
+						{%capture position%}service_review_{{i}}_position{%endcapture%}
+						{%capture desc%}service_review_{{i}}_desc{%endcapture%}
+						{%if settings[show]%}
+						<div class="review-item">
+							<div class="item-top">
+								<div class="item-img">
+									<img src="{{ img | asset_url}}" alt="{{settings[name]}}" />
+								</div>
+								<div class="item-info">
+									<p class="name">{{settings[name]}}</p>
+									<p class="position">{{settings[position]}}</p>
+								</div>
+							</div>
+							<div class="item-bottom">
+								{{settings[desc]}}
+							</div>
+						</div>
+						{%endif%}
+						{%endfor%}
+					</div>
+					{%if settings.service_review_btn != ''%}
+					<div class="btn-more btn-mb text-center">
+						<a href="{{settings.service_review_link}}" class="button">{{settings.service_review_btn}}</a>
+					</div>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+
+	{%if settings.show_service_2%}
+	<section class="section-service-2">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-9 col-12">
+					<div class="heading-title">
+						{%if settings.service_2_title_1 != ''%}<p class="title1">{{settings.service_2_title_1}}</p>{%endif%}
+						{%if settings.service_2_title_2 != ''%}<h2 class="title2">{{settings.service_2_title_2}}</h2>{%endif%}
+					</div>
+				</div>
+				{%if settings.service_2_btn != ''%}
+				<div class="col-lg-3 col-12 btn-pc">
+					<div class="btn-more text-right">
+						<a href="{{settings.service_2_link}}" class="button">{{settings.service_2_btn}}</a>
+					</div>
+				</div>
+				{%endif%}
+			</div>
+			<div class="row list-service">
+				{%assign time1 = 0.3%}
+				{%for i in (1..4)%}
+				{%capture show%}show_service_2_{{i}}{%endcapture%}
+				{%capture banner%}service_2_{{i}}_img_1.jpg{%endcapture%}
+				{%capture icon%}service_2_{{i}}_img_2.jpg{%endcapture%}
+				{%capture title%}service_2_{{i}}_title{%endcapture%}
+				{%capture desc%}service_2_{{i}}_desc{%endcapture%}
+				{%capture link%}service_2_{{i}}_link{%endcapture%}
+				{%if settings[show]%}
+				{%assign time1 = time1 | plus: 0.2%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time1}}s">
+					<a href="{{settings[link]}}" class="service-item">
+						<div class="item-img">
+							<div class="banner">
+								<img src="{{ banner | asset_url}}" alt="{{settings[title]}}"/>
+							</div>
+							<div class="icon">
+								<img src="{{ icon | asset_url}}" alt="{{settings[title]}} icon"/>
+							</div>
+						</div>
+						<div class="item-detail">
+							{%if settings[title] != ''%}<h3 class="title">{{settings[title]}}</h3>{%endif%}
+							{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+						</div>
+					</a>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			{%if settings.service_2_btn != ''%}
+			<div class="btn-more btn-mb">
+				<a href="{{settings.service_2_link}}" class="button">{{settings.service_2_btn}}</a>
+			</div>
+			{%endif%}
+		</div>
+	</section>
+	{%endif%}
+</div>

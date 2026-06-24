@@ -1,0 +1,268 @@
+<div class="layout-pageContact">	
+	{%if settings.show_contact_header%}
+	<section class="section-breadcrumb" style="--bg-breadcrumb: url({{ 'contact_header_img.jpg' | asset_url}})">
+		{% include 'breadcrumb'%}
+		<div class="container breadcrumb-content">
+			<h1 class="title">{{page.title}}</h1>
+			{%if settings.contact_header_desc != ''%}<p class="desc">{{settings.contact_header_desc}}</p>{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_page_contact%}
+	<section class="section-contact">
+		<div class="container">
+			<div class="heading-title text-center">
+				{%if settings.page_contact_title != ''%}<h2 class="title2">{{settings.page_contact_title}}</h2>{%endif%}
+				{%if settings.page_contact_desc != ''%}<p class="desc">{{settings.page_contact_desc | newline_to_br}}</p>{%endif%}
+			</div>
+			<div class="row contact-list">
+				{%assign time4 = 0.1%}
+				{%for i in (1..4)%}
+				{%capture show%}show_page_contact_{{i}}{%endcapture%}
+				{%capture img%}page_contact_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}page_contact_{{i}}_title{%endcapture%}
+				{%capture desc%}page_contact_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				{%assign time4 = time4 | plus: 0.2%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time4}}s">
+					<div class="contact-item text-center">
+						<div class="item-img">
+							<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+						</div>
+						<p class="title">{{settings[title]}}</p>
+						<p class="desc">{{settings[desc] | newline_to_br}}</p>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_contact_form%}
+	<section class="section-contact-form">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-7 col-12 form-left wow fadeIn" data-wow-delay="0.5s">
+					<div class="banner-img">
+						<img src="{{ 'contact_form_img.jpg' | asset_url}}" alt="{{settings.contact_form_title_2}}" />
+					</div>
+				</div>
+				<div class="col-lg-5 col-12 form-right wow fadeIn" data-wow-delay="0.8s">
+					<div class="heading-title">
+						{%if settings.contact_form_title_1 != ''%}<p class="title1">{{settings.contact_form_title_1}}</p>{%endif%}
+						{%if settings.contact_form_title_2 != ''%}<h2 class="title2">{{settings.contact_form_title_2}}</h2>{%endif%}
+						{%if settings.contact_form_desc != ''%}<p class="desc">{{settings.contact_form_desc | newline_to_br}}</p>{%endif%}
+					</div>
+					<div class="form-booking">
+						<form id="form-booking-contact" class="formbooking" action="{{settings.contact_gg_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.contact_form_booking_2}}" data-harasocial="{{settings.contact_form_harasocial_link}}" data-success="{{ settings.contact_form_success | newline_to_br}}">
+							<div class="contact-form">
+								<div class="row">
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="full_name">{{settings.contact_form_name}} <span>*</span></label>
+											<input required type="text" name="{{settings.contact_gg_name}}" id="full_name" data-valid="full_name"  class="form-control" placeholder="{{settings.contact_form_name}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="full_name-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_phone">{{settings.contact_form_phone}} <span>*</span></label>
+											<input pattern="[0-9]{10,12}" required type="text" name="{{settings.contact_gg_phone}}" id="your_phone" data-valid="your_phone" class="form-control" placeholder="{{settings.contact_form_phone}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_phone-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_email">{{settings.contact_form_email}}</label>
+											<input required type="text" name="{{settings.contact_gg_email}}" id="your_email" data-valid="your_email" class="form-control" placeholder="{{settings.contact_form_email}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_email-validation field-error"></p>
+									</div>
+									<div class="col-sm-6 col-xs-12">
+										<div class="input-group">
+											<label for="your_date">{{settings.contact_form_date}}</label>
+											<input required type="date" name="{{settings.contact_gg_date}}" id="your_date" data-valid="your_date"  class="form-control" placeholder="{{settings.contact_form_date}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_date-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="addcart-area">						
+											<button type="button" class="button btn-send"> 
+												{{settings.contact_form_booking}}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_contact_partner%}
+	<section class="section-contact-partner">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 col-12 wow fadeIn" data-wow-delay="0.5s">
+					<div class="heading-title">
+						{%if settings.contact_partner_title != ''%}<h2 class="title2">{{settings.contact_partner_title}}</h2>{%endif%}
+						{%if settings.contact_partner_desc != ''%}<p class="desc">{{settings.contact_partner_desc | newline_to_br}}</p>{%endif%}
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 wow fadeIn" data-wow-delay="0.8s">
+					<div class="list-logo">
+						{%for i in (1..6)%}
+						{%capture show%}show_contact_partner_logo_{{i}}{%endcapture%}
+						{%capture img%}contact_partner_logo_{{i}}_img.jpg{%endcapture%}
+						{%capture alt%}contact_partner_logo_{{i}}_alt{%endcapture%}
+						{%if settings[show]%}
+						<div class="logo-item">
+							<img src="{{ img | asset_url}}" alt="{{settings[alt]}}" />
+						</div>
+						{%endif%}
+						{%endfor%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_page_contact_map%}
+	<section class="section-contact-map wow fadeIn" data-wow-delay="0.5s">
+		<div class="container">
+			<div class="row align-items-center contact-top">
+				<div class="col-lg-4 col-12">
+					<div class="contact-time">
+						{%if settings.page_contact_time_title != ''%}<p class="title">{{settings.page_contact_time_title}}</p>{%endif%}
+						{%if settings.page_contact_time_desc != ''%}<p class="desc">{{settings.page_contact_time_desc}}</p>{%endif%}
+						<ul class="list-time">
+							{%for i in (1..6)%}
+							{%capture title%}page_contact_time_{{i}}_title{%endcapture%}
+							{%capture desc%}page_contact_time_{{i}}_desc{%endcapture%}
+							{%if settings[title] != ''%}
+							<li>
+								<span class="title">{{settings[title]}}</span>
+								<span class="desc">{{settings[desc]}}</span>
+							</li>
+							{%endif%}
+							{%endfor%}
+						</ul>
+						{%if settings.page_contact_btn != ''%}
+						<div class="btn-more">
+							<a href="{{settings.page_contact_link}}" class="button">{{settings.page_contact_btn}}</a>
+						</div>
+						{%endif%}
+					</div>
+				</div>
+				<div class="col-lg-8 col-12 top-left">
+					<div class="contact-map">
+						{{settings.page_contact_map}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+
+	{%comment%}
+	<div class="wrapper-bodycontact">
+		<div class="wrapbox-content-contact">
+			<div class="container pd-top">	
+				<div class="row widthContent">
+					<div class="col-lg-6 col-md-12 col-12 wrapbox-content-left">
+						<div class="box-info-contact">
+							<h2>Thông tin liên hệ</h2>
+							<div class="wrapbox-contact">
+								<ul class="infoList-contact row">
+									{%- if settings.contact_address != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-map-marker"></i></span>
+										<p><strong>Địa chỉ</strong><br>{{settings.contact_address}}</p>
+									</li>
+									{%- endif -%}
+									{%- if settings.contact_phone != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-phone"></i></span>
+										<p><a class="cta-clicktocall" href="tel:{{settings.contact_phone  | replace: '.', ''| replace: ' ', ''}}" rel="noopener"><strong>Điện thoại</strong><br>{{settings.contact_phone}}</a></p>
+									</li>
+									{%- endif -%}
+								</ul>
+								<ul class="infoList-contact row">
+									{%- if settings.contact_time != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-calendar"></i></span>
+										<p><strong>Thời gian làm việc</strong><br>{{settings.contact_time}}</p>
+									</li>
+									{%- endif -%}
+									{%- if settings.contact_email != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-envelope-o"></i></span>
+										<p><strong>Email</strong><br>{{settings.contact_email}}</p>
+									</li>
+									{%- endif -%}
+								</ul>
+							</div>
+
+						</div> 
+						<div class="box-send-contact">
+							<h2>Gửi thắc mắc cho chúng tôi</h2>
+							<p>Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể .</p>
+							<div id="col-left contactFormWrapper">
+								{% form 'contact' %}
+								{% if form.posted_successfully? %}
+								<div class="alert alert-success">
+									Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+								</div>
+								{% endif %}
+								<div class="contact-form">
+									<div class="row">
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group">
+												<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group">
+												<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<textarea required name="contact[body]" placeholder="Nội dung"></textarea>
+												<div class="sitebox-recaptcha " >
+													This site is protected by reCAPTCHA and the Google
+													<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+													and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+												</div>	
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12">
+											<button class="button dark cta-submitform">Gửi cho chúng tôi</button>
+										</div>
+									</div>
+								</div>
+								{% endform %}
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-12 wrapbox-content-right">
+						{% if settings.google_maps_show and settings.google_maps_code != blank %}
+						<div class="box-map-contact">
+							{{ settings.google_maps_code }}
+						</div>
+						{% endif %}
+					</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+	{%endcomment%}
+</div>

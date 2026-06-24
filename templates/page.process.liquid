@@ -1,0 +1,173 @@
+<div class="layout-process">
+	{%if settings.show_process%}
+	<section class="section-process-step">
+		<div class="container">
+			<div class="heading-title text-center wow fadeIn">
+				{%if settings.process_title_1 != ''%}<p class="title1">{{settings.process_title_1}}</p>{%endif%}
+				{%if settings.process_title_2 != ''%}<h2 class="title2">{{settings.process_title_2}}</h2>{%endif%}
+				{%if settings.process_desc != ''%}<p class="desc">{{settings.process_desc | newline_to_br}}</p>{%endif%}
+			</div>
+			{%assign count = 0 %}
+			{%assign step = ''%}
+			{%for i in (1..5)%}
+			{%capture show%}show_process_{{i}}{%endcapture%}
+			{%capture img%}process_{{i}}_img.jpg{%endcapture%}
+			{%capture banner%}process_{{i}}_banner.jpg{%endcapture%}
+			{%capture title1%}process_{{i}}_title_1{%endcapture%}
+			{%capture title2%}process_{{i}}_title_2{%endcapture%}
+			{%capture desc%}process_{{i}}_desc{%endcapture%}
+			{%if settings[show]%}
+			{%assign count = count | plus: 1 %}
+			{%capture step_html%}
+			<div class="col-lg-6 col-12 step-col wow fadeIn">
+				<div class="step-item" style="--bg-icon: url({{ img | asset_url}})">
+					{%if settings[title1] != ''%}<p class="title1">{{settings[title1]}}</p>{%endif%}
+					{%if settings[title2] != ''%}<h3 class="title2">{{settings[title2]}}</h3>{%endif%}
+					{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+					<div class="item-banner">
+						<img src="{{ banner | asset_url}}" alt="{{settings[title2]}}" />
+					</div>
+				</div>
+			</div>
+			{%endcapture%}
+			{%assign step = step | append: step_html %}
+			{%endif%}
+			{%endfor%}
+			<div class="row {%if count > 1%}has-border{%endif%}">
+				{{step}}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_process_service_1%}
+	<section class="section-process-service-1">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-9 col-12">
+					<div class="heading-title">
+						{%if settings.process_service_1_title_1 != ''%}<p class="title1">{{settings.process_service_1_title_1}}</p>{%endif%}
+						{%if settings.process_service_1_title_2 != ''%}<h2 class="title2">{{settings.process_service_1_title_2}}</h2>{%endif%}
+					</div>
+				</div>
+				{%if settings.process_service_1_btn != ''%}
+				<div class="col-lg-3 col-12 btn-pc">
+					<div class="btn-more text-right">
+						<a href="{{settings.process_service_1_link}}" class="button">{{settings.process_service_1_btn}}</a>
+					</div>
+				</div>
+				{%endif%}
+			</div>
+			<div class="row list-service">
+				{%assign time1 = 0.3%}
+				{%for i in (1..4)%}
+				{%capture show%}show_process_service_1_{{i}}{%endcapture%}
+				{%capture banner%}process_service_1_{{i}}_img_1.jpg{%endcapture%}
+				{%capture icon%}process_service_1_{{i}}_img_2.jpg{%endcapture%}
+				{%capture title%}process_service_1_{{i}}_title{%endcapture%}
+				{%capture desc%}process_service_1_{{i}}_desc{%endcapture%}
+				{%capture link%}process_service_1_{{i}}_link{%endcapture%}
+				{%if settings[show]%}
+				{%assign time1 = time1 | plus: 0.2%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time1}}s">
+					<a href="{{settings[link]}}" class="service-item">
+						<div class="item-img">
+							<div class="banner">
+								<img src="{{ banner | asset_url}}" alt="{{settings[title]}}"/>
+							</div>
+							<div class="icon">
+								<img src="{{ icon | asset_url}}" alt="{{settings[title]}} icon"/>
+							</div>
+						</div>
+						<div class="item-detail">
+							{%if settings[title] != ''%}<h3 class="title">{{settings[title]}}</h3>{%endif%}
+							{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+						</div>
+					</a>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			{%if settings.process_service_1_btn != ''%}
+			<div class="btn-more btn-mb">
+				<a href="{{settings.process_service_1_link}}" class="button">{{settings.process_service_1_btn}}</a>
+			</div>
+			{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_process_service_2%}
+	<section class="section-process-service-2">
+		<div class="container">
+			<div class="heading-title text-center">
+				{%if settings.process_service_2_title_1 != ''%}<p class="title1">{{settings.process_service_2_title_1}}</p>{%endif%}
+				{%if settings.process_service_2_title_2 != ''%}<h2 class="title2">{{settings.process_service_2_title_2}}</h2>{%endif%}
+				{%if settings.process_service_2_desc != ''%}<p class="desc">{{settings.process_service_2_desc | newline_to_br}}</p>{%endif%}
+			</div>
+			<div class="row">
+				{%assign time3 = 0.3%}
+				{%for i in (1..8)%}
+				{%capture show%}show_process_service_2_{{i}}{%endcapture%}
+				{%capture img%}process_service_2_{{i}}_img.jpg{%endcapture%}
+				{%capture title%}process_service_2_{{i}}_title{%endcapture%}
+				{%capture desc%}process_service_2_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				{%assign time3 = time3 | plus: 0.2%}
+				<div class="col-lg-3 col-12 wow fadeInUp" data-wow-delay="{{time3}}s">
+					<div class="service-item">
+						<div class="item-img">
+							<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+						</div>
+						<div class="item-detail">
+							<h3 class="title">{{settings[title]}}</h3>
+							{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_process_team%}
+	<section class="section-process-team">
+		<div class="container">
+			<div class="heading-title">
+				{%if settings.process_team_title_1 != ''%}<p class="title1">{{settings.process_team_title_1}}</p>{%endif%}
+				{%if settings.process_team_title_2 != ''%}<h2 class="title2">{{settings.process_team_title_2}}</h2>{%endif%}
+			</div>
+			<div class="row list-team">
+				{%assign time2 = 0.3%}
+				{%for i in (1..4)%}
+				{%capture show%}show_process_team_{{i}}{%endcapture%}
+				{%capture img%}process_team_{{i}}_img.jpg{%endcapture%}
+				{%capture name%}process_team_{{i}}_name{%endcapture%}
+				{%capture position%}process_team_{{i}}_position{%endcapture%}
+				{%capture desc%}process_team_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				{%assign time2 = time2 | plus: 0.2%}
+				<div class="team-item wow fadeInUp" data-wow-delay="{{time2}}s">
+					<div class="item-img">
+						<img src="{{ img | asset_url}}" alt="{{settings[name]}}" />
+					</div>
+					<div class="item-detail">
+						{%if settings[name] != ''%}<p class="name">{{settings[name]}}</p>{%endif%}
+						{%if settings[position] != ''%}<p class="position">{{settings[position]}}</p>{%endif%}
+						{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+						<ul class="item-social">
+							{%for j in (1..6)%}
+							{%capture link %}process_team_{{i}}_link_{{j}}{%endcapture%}
+							{%if settings[link] != ''%}
+							<li><a href="{{settings[link]}}">{%if j == 1%}<i class="fa fa-facebook"></i>{%elsif j == 2%}<i class="fa fa-twitter"></i>{%elsif j == 3%}<i class="fa fa-linkedin"></i>{%elsif j == 4%}<i class="fa fa-youtube-play"></i>{%elsif j == 5%}<i class="fa fa-pinterest-p"></i>{%else%}<i class="fa fa-whatsapp"></i>{%endif%}</a></li>
+							{%endif%}
+							{%endfor%}
+						</ul>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+</div>

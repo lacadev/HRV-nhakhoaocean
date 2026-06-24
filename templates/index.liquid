@@ -1,0 +1,369 @@
+{%if settings.home_slider_show%}{%include 'homepage-slider'%}{%endif%}
+{%if settings.show_home_form_1%}
+<section class="section-home-form1">
+	<div class="container">
+		<div class="row align-items-center row-top">
+			<div class="col-lg-6 col-12">
+				<div class="form-left">
+					<p class="form-desc">{{settings.home_form_1_desc}}</p>
+					<img src="{{ 'home_form_1_img_2.jpg' | asset_url}}" alt="signature" />	
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 form-right">
+				<div class="heading-title">
+					<h2 class="title2">{{settings.home_form_1_title}}</h2>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-12 form-banner">
+						<img src="{{ 'home_form_1_img_1.jpg' | asset_url}}" alt="{{settings.home_form_1_title}}" />
+					</div>
+					<div class="col-lg-6 col-12 form-booking">
+						<form id="form-booking-1" class="formbooking" action="{{settings.gg_1_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.form_home_booking_1}}" data-harasocial="{{settings.form_1_harasocial_link}}" data-success="{{ settings.form_1_success | newline_to_br}}">
+							<div class="contact-form">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<div class="input-group">
+											<input required type="text" name="{{settings.gg_1_name}}" id="full_name" data-valid="full_name"  class="form-control" placeholder="{{settings.form_1_name}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="full_name-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="input-group">
+											<input pattern="[0-9]{10,12}" required type="text" name="{{settings.gg_1_phone}}" id="your_phone" data-valid="your_phone" class="form-control" placeholder="{{settings.form_1_phone}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_phone-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="input-group">
+											<input required type="text" name="{{settings.gg_1_email}}" id="your_email" data-valid="your_email" class="form-control" placeholder="{{settings.form_1_email}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_email-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="input-group">
+											<input required type="date" name="{{settings.gg_1_date}}" id="your_date" data-valid="your_date"  class="form-control" placeholder="{{settings.form_1_date}}" aria-describedby="basic-addon1">
+										</div>
+										<p class="your_date-validation field-error"></p>
+									</div>
+									<div class="col-sm-12 col-xs-12">
+										<div class="addcart-area">						
+											<button type="button" class="button btn-send"> 
+												{{settings.form_1_booking}}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+{%endif%}
+<div class="home-pus-promotion pus-promotion-grids">
+	<div class="container">
+		<div class="hrv-pus-promotion" data-hrvpus-layout="flashsale"></div>
+	</div>
+</div>
+<div class="home-hrvpmo hrvpmo-grids">
+	<div class="container">
+		<div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+		<div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+	</div>
+</div>
+{%if settings.show_home_service_1%}
+<section class="section-home-service1">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-9 col-12">
+				<div class="heading-title">
+					{%if settings.home_service_1_title_1 != ''%}<p class="title1">{{settings.home_service_1_title_1}}</p>{%endif%}
+					{%if settings.home_service_1_title_2 != ''%}<h2 class="title2">{{settings.home_service_1_title_2}}</h2>{%endif%}
+				</div>
+			</div>
+			{%if settings.home_service_1_btn != ''%}
+			<div class="col-lg-3 col-12 btn-pc">
+				<div class="btn-more text-right">
+					<a href="{{settings.home_service_1_link}}" class="button">{{settings.home_service_1_btn}}</a>
+				</div>
+			</div>
+			{%endif%}
+		</div>
+		<div class="row list-service">
+			{%assign time1 = 0.3%}
+			{%for i in (1..4)%}
+			{%capture show%}show_home_service_1_{{i}}{%endcapture%}
+			{%capture banner%}home_service_1_{{i}}_img_1.jpg{%endcapture%}
+			{%capture icon%}home_service_1_{{i}}_img_2.jpg{%endcapture%}
+			{%capture title%}home_service_1_{{i}}_title{%endcapture%}
+			{%capture desc%}home_service_1_{{i}}_desc{%endcapture%}
+			{%capture link%}home_service_1_{{i}}_link{%endcapture%}
+			{%if settings[show]%}
+			{%assign time1 = time1 | plus: 0.2%}
+			<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time1}}s">
+				<a href="{{settings[link]}}" class="service-item">
+					<div class="item-img">
+						<div class="banner">
+							<img src="{{ banner | asset_url}}" alt="{{settings[title]}}"/>
+						</div>
+						<div class="icon">
+							<img src="{{ icon | asset_url}}" alt="{{settings[title]}} icon"/>
+						</div>
+					</div>
+					<div class="item-detail">
+						{%if settings[title] != ''%}<h3 class="title">{{settings[title]}}</h3>{%endif%}
+						{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+					</div>
+				</a>
+			</div>
+			{%endif%}
+			{%endfor%}
+		</div>
+		{%if settings.home_service_1_btn != ''%}
+		<div class="btn-more btn-mb">
+			<a href="{{settings.home_service_1_link}}" class="button">{{settings.home_service_1_btn}}</a>
+		</div>
+		{%endif%}
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_team%}
+<section class="section-home-team">
+	<div class="team-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-12 team-left text-center">
+					<div class="heading-title">
+						{%if settings.home_team_title_1 != ''%}<p class="title1">{{settings.home_team_title_1}}</p>{%endif%}
+						{%if settings.home_team_title_2 != ''%}<h2 class="title2">{{settings.home_team_title_2}}</h2>{%endif%}
+					</div>
+					<p class="team-desc">{{settings.home_team_desc}}</p>
+					<img src="{{ 'home_team_img_2.jpg' | asset_url}}" alt="signature 2" />	
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row list-team">
+			{%assign time2 = 0.3%}
+			{%for i in (1..4)%}
+			{%capture show%}show_home_team_{{i}}{%endcapture%}
+			{%capture img%}home_team_{{i}}_img.jpg{%endcapture%}
+			{%capture name%}home_team_{{i}}_name{%endcapture%}
+			{%capture position%}home_team_{{i}}_position{%endcapture%}
+			{%capture desc%}home_team_{{i}}_desc{%endcapture%}
+			{%if settings[show]%}
+			{%assign time2 = time2 | plus: 0.2%}
+			<div class="team-item wow fadeInUp" data-wow-delay="{{time2}}s">
+				<div class="item-img">
+					<img src="{{ img | asset_url}}" alt="{{settings[name]}}" />
+				</div>
+				<div class="item-detail">
+					{%if settings[name] != ''%}<p class="name">{{settings[name]}}</p>{%endif%}
+					{%if settings[position] != ''%}<p class="position">{{settings[position]}}</p>{%endif%}
+					{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+					<ul class="item-social">
+						{%for j in (1..6)%}
+						{%capture link %}home_team_{{i}}_link_{{j}}{%endcapture%}
+						{%if settings[link] != ''%}
+						<li><a href="{{settings[link]}}">{%if j == 1%}<i class="fa fa-facebook"></i>{%elsif j == 2%}<i class="fa fa-twitter"></i>{%elsif j == 3%}<i class="fa fa-linkedin"></i>{%elsif j == 4%}<i class="fa fa-youtube-play"></i>{%elsif j == 5%}<i class="fa fa-pinterest-p"></i>{%else%}<i class="fa fa-whatsapp"></i>{%endif%}</a></li>
+						{%endif%}
+						{%endfor%}
+					</ul>
+				</div>
+			</div>
+			{%endif%}
+			{%endfor%}
+		</div>
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_form_2%}
+<section class="section-home-form2">
+	<div class="container">
+		<div class="row align-items-end">
+			<div class="col-lg-6 offset-lg-6 col-12">
+				<div class="heading-title">
+					{%if settings.home_form_2_title_1 != ''%}<p class="title1">{{settings.home_form_2_title_1}}</p>{%endif%}
+					{%if settings.home_form_2_title_2 != ''%}<h2 class="title2">{{settings.home_form_2_title_2}}</h2>{%endif%}
+					{%if settings.home_form_2_desc != ''%}<p class="desc">{{settings.home_form_2_desc | newline_to_br}}</p>{%endif%}
+				</div>
+				<div class="form-booking">
+					<form id="form-booking-2" class="formbooking" action="{{settings.gg_2_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.form_home_booking_2}}" data-harasocial="{{settings.form_2_harasocial_link}}" data-success="{{ settings.form_2_success | newline_to_br}}">
+						<div class="contact-form">
+							<div class="row">
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<label for="full_name">{{settings.form_2_name}} <span>*</span></label>
+										<input required type="text" name="{{settings.gg_2_name}}" id="full_name" data-valid="full_name"  class="form-control" placeholder="{{settings.form_2_name}}" aria-describedby="basic-addon1">
+									</div>
+									<p class="full_name-validation field-error"></p>
+								</div>
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<label for="your_phone">{{settings.form_2_phone}} <span>*</span></label>
+										<input pattern="[0-9]{10,12}" required type="text" name="{{settings.gg_2_phone}}" id="your_phone" data-valid="your_phone" class="form-control" placeholder="{{settings.form_2_phone}}" aria-describedby="basic-addon1">
+									</div>
+									<p class="your_phone-validation field-error"></p>
+								</div>
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<label for="your_email">{{settings.form_2_email}}</label>
+										<input required type="text" name="{{settings.gg_2_email}}" id="your_email" data-valid="your_email" class="form-control" placeholder="{{settings.form_2_email}}" aria-describedby="basic-addon1">
+									</div>
+									<p class="your_email-validation field-error"></p>
+								</div>
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<label for="your_date">{{settings.form_2_date}}</label>
+										<input required type="date" name="{{settings.gg_2_date}}" id="your_date" data-valid="your_date"  class="form-control" placeholder="{{settings.form_2_date}}" aria-describedby="basic-addon1">
+									</div>
+									<p class="your_date-validation field-error"></p>
+								</div>
+								<div class="col-sm-12 col-xs-12">
+									<div class="addcart-area">						
+										<button type="button" class="button btn-send"> 
+											{{settings.form_2_booking}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_service_2%}
+<section class="section-home-service2">
+	<div class="container list-service">
+		<div class="row">
+			{%assign time3 = 0.3%}
+			{%for i in (1..8)%}
+			{%capture show%}show_home_service_2_{{i}}{%endcapture%}
+			{%capture img%}home_service_2_{{i}}_img.jpg{%endcapture%}
+			{%capture title%}home_service_2_{{i}}_title{%endcapture%}
+			{%capture desc%}home_service_2_{{i}}_desc{%endcapture%}
+			{%if settings[show]%}
+			{%assign time3 = time3 | plus: 0.2%}
+			<div class="col-lg-3 col-12 wow fadeInUp" data-wow-delay="{{time3}}s">
+				<div class="service-item">
+					<div class="item-img">
+						<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+					</div>
+					<div class="item-detail">
+						<h3 class="title">{{settings[title]}}</h3>
+						{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
+					</div>
+				</div>
+			</div>
+			{%endif%}
+			{%endfor%}
+		</div>
+		{%if settings.home_service_2_btn != ''%}
+		<div class="btn-more">
+			<a href="{{settings.home_service_2_link}}" class="button">{{settings.home_service_2_btn}}</a>
+		</div>
+		{%endif%}
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_blog %}
+<section class="section-home-blog">
+	<div class="container">
+		<div class="heading-title text-center">
+			{%if settings.home_blog_title1 != ''%}<p class="title1">{{settings.home_blog_title1}}</p>{%endif%}
+			{%if settings.home_blog_title2 != ''%}<h2 class="title2">{{settings.home_blog_title2}}</h2>{%endif%}
+		</div>
+		{%if blog.articles.size == 0%}
+		<p class="txt-noArticle">Chưa có bài viết nào trong mục này</p>
+		{%else%}
+		<div class="row">
+			{%assign time5 = 0.3%}
+			{% for article in blogs[settings.home_blog_handle].articles limit: 3 %}
+			{%assign time5 = time5 | plus: 0.2%}
+			<div class="col-lg-4 col-12 wow fadeInUp" data-wow-delay="{{time5}}s">
+				{%include 'article-loop'%}
+			</div>
+			{%endfor%}
+		</div>
+		{%endif%}
+		{%if blogs[settings.home_blog_handle].articles.size > 3 and settings.home_blog_btn != ''%}
+		<div class="btn-more text-center">
+			<a href="{{blogs[settings.home_blog_handle].url}}" class="button">{{settings.home_blog_btn}}</a>
+		</div>
+		{%endif%}
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_contact%}
+<section class="section-home-contact">
+	<div class="container">
+		<div class="heading-title text-center">
+			{%if settings.home_contact_title != ''%}<h2 class="title2">{{settings.home_contact_title}}</h2>{%endif%}
+			{%if settings.home_contact_desc != ''%}<p class="desc">{{settings.home_contact_desc | newline_to_br}}</p>{%endif%}
+		</div>
+		<div class="row align-items-center contact-top">
+			<div class="col-lg-8 col-12 top-left">
+				<div class="contact-map">
+					{{settings.home_contact_map}}
+				</div>
+			</div>
+			<div class="col-lg-4 col-12">
+				<div class="contact-time">
+					{%if settings.home_contact_time_title != ''%}<p class="title">{{settings.home_contact_time_title}}</p>{%endif%}
+					{%if settings.home_contact_time_desc != ''%}<p class="desc">{{settings.home_contact_time_desc}}</p>{%endif%}
+					<ul class="list-time">
+						{%for i in (1..6)%}
+						{%capture title%}home_contact_time_{{i}}_title{%endcapture%}
+						{%capture desc%}home_contact_time_{{i}}_desc{%endcapture%}
+						{%if settings[title] != ''%}
+						<li>
+							<span class="title">{{settings[title]}}</span>
+							<span class="desc">{{settings[desc]}}</span>
+						</li>
+						{%endif%}
+						{%endfor%}
+					</ul>
+					{%if settings.home_contact_btn != ''%}
+					<div class="btn-more">
+						<a href="{{settings.home_contact_link}}" class="button">{{settings.home_contact_btn}}</a>
+					</div>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+		<div class="row contact-list">
+			{%assign time4 = 0.3%}
+			{%for i in (1..4)%}
+			{%capture show%}show_home_contact_{{i}}{%endcapture%}
+			{%capture img%}home_contact_{{i}}_img.jpg{%endcapture%}
+			{%capture title%}home_contact_{{i}}_title{%endcapture%}
+			{%capture desc%}home_contact_{{i}}_desc{%endcapture%}
+			{%if settings[show]%}
+			{%assign time4 = time4 | plus: 0.2%}
+			<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time4}}s">
+				<div class="contact-item text-center">
+					<div class="item-img">
+						<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
+					</div>
+					<p class="title">{{settings[title]}}</p>
+					<p class="desc">{{settings[desc] | newline_to_br}}</p>
+				</div>
+			</div>
+			{%endif%}
+			{%endfor%}
+		</div>
+	</div>
+</section>
+{%endif%}
+
+
+
+
+

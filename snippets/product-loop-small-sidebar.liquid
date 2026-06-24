@@ -1,0 +1,126 @@
+{% comment %}<!-- Tính phần trăm -->{% endcomment %}
+{% assign on_sale = false %}
+{% if product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}<!-- Tính giá khuyến mãi  -->{% endcomment %}
+{% if product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign price_sale = 0 %}
+{% assign price_sale = product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0 %}
+{% endif %}
+
+{% comment %}<!-- Sản phẩm có giá 0đ  -->{% endcomment %}
+{%- assign price_zero = false -%}
+{%- if  product.variants.first.price == 0 -%}
+{%- assign price_zero = true -%}
+{%- endif -%}
+{% comment %}<!-- Tình trạng hết hàng -->{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}  
+
+{% comment %}<!-- Tag sản phẩm -->{% endcomment %}
+{%- assign at_store = false -%}	
+
+{%- assign check_gift = false -%}
+{%- for tag in product.tags -%}
+{%- if tag == 'giftbox' -%} {%- assign check_gift = true -%} {%- endif -%}
+{%- endfor -%}
+
+{% comment %}<!-- Check collection -->{% endcomment %}
+{%- assign is_preorder_prodloop = false -%}
+{%- for item in product.collections -%}
+{%- if item.handle == settings.collection_preorder -%}
+{%- assign is_preorder_prodloop = true -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+{% comment %}<!-- Check Video -->{% endcomment %}
+{%- assign check_video = false -%}
+{%-if product.media.size > 0 -%}
+{%- for media in product.media -%}
+{%- if media.media_type == 'external_video' -%}
+{%- assign check_video = true -%}
+{%- endif -%}
+{%-endfor-%}
+{%- endif -%}
+
+{%assign mota = product.description | split: '####'%}
+
+{%-assign index_item = forloop.index | times: 1 -%}
+{%- if template contains 'search' or template contains 'collection' -%}
+{%-if page != nil-%}{%-assign index_item = page | minus: 1 | times: settings.collection_pagination_limit | plus: index_item -%}{%-endif-%}
+{%-endif-%}
+<div class="product-loop-small-sidebar" data-id="{{ product.variants.first.id }}">
+	<div class="product-inner" data-proid="{{ product.id }}" id="{{section}}_loop_{{index_item}}">
+		<div class="proloop-image">
+			{% if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appcombo' or settings.promotion_hrvapp == 'appbuyxgety' %}
+			<div class="gift product_gift_label d-none" data-id="{{product.id}}">
+				<img class="lazyload" data-src="{{ settings.combo_icon }}" 
+						 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+						 alt="Icon quà tặng">
+			</div>
+			{% endif %}
+			<a href="{{product.url}}" aria-label="{{ product.title }}">
+				<div class="product--image">	
+					<div class="lazy-img">
+						<picture>
+							<source media="(max-width: 480px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'small' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+											srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+							<source media="(min-width: 481px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'small' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+											srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+							<img class="lazyload img-loop " data-src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'small' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}" 
+									 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+									 alt="{% if product.featured_image.alt.size >0 %}{{ product.featured_image.alt | strip_html | escape }}{% else%} {{product.title | strip_html | escape}} {% endif %}"  />
+						</picture>		
+					</div>		
+				</div>
+			</a>
+		</div>
+		<div class="proloop-detail">
+			<div class="proloop-detail">
+				<div class="detail-title">
+					<h3><a href="{{product.url}}">{{ product.title }}</a></h3>
+					<div class="title-line"></div>
+					<div class="wrapper-action-loop ">
+						{%- unless price_zero -%}
+						<p class="proloop--price prices-ctas">
+							<span class="price">{{ product.variants.first.price | money }}</span>
+							{%- if on_sale -%}			
+							<span class="price-del">{{ product.variants.first.compare_at_price | money }}</span>
+							{%- endif -%}
+							{%- if sold_out -%} <span class="prohzt-soldout">Hết hàng</span>{%- endif -%}
+						</p>
+						{%- endunless -%}
+						{%- if price_zero or check_gift-%}
+						<div class="proloop-actions">
+							<div class="proloop-actions__inner">
+								{%- if check_gift -%}
+								<a href="{{product.url}}" class="btn-proloop btn-proloop-gift"  title="{{product.title}}" >
+									<span>Hàng tặng không bán</span>
+								</a>
+								{%- else -%}
+								<a href="{{settings.prod_pricezero_link}}" 
+									 class="btn-proloop btn-proloop-contact">{{settings.prod_pricezero_title}}	</a>	
+								{%- endif -%}
+							</div>
+						</div>
+						{%- endif -%}
+					</div>
+				</div>
+				<div class="proloop-desc">{{ product.description | strip_html | truncatewords: 8 }}</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+

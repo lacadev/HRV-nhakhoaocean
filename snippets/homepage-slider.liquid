@@ -1,0 +1,40 @@
+<div class="section-home-slider" id="homepage-slider">
+	<div class="slider-owl owl-carousel ">
+		<div class="slider-item">
+			<div class="slide--image">
+				<a href="{{ settings.slide_1_link }}" title="{{ settings.slide_1_alt | strip_html | escape}}" aria-label="{{ settings.slide_1_alt | strip_html | escape}}">
+					<picture>
+						<source media="(max-width: 767px)" srcset="{{ 'slide_1_mb.jpg' | asset_url}}" />
+						<source media="(min-width: 768px)" srcset="{{ 'slide_1_img.jpg' | asset_url}}" />
+						<img src="{{ 'slide_1_img.jpg' | asset_url }}" alt="{{ settings.slide_1_alt | strip_html | escape }}"/>
+					</picture>
+				</a>
+			</div>
+		</div>
+		{%- for i in (2..4) -%}
+		{% capture show_slide %}slide_{{ i }}_show{% endcapture %}
+		{% capture image %}slide_{{ i }}_img.jpg{% endcapture %}
+		{% capture image_mb %}slide_{{ i }}_mb.jpg{% endcapture %}
+		{% capture alt %}slide_{{i}}_alt{% endcapture %}
+		{% capture link %}slide_{{i}}_link{% endcapture %}
+		{%- if settings[show_slide] -%}
+		<div class="slider-item">
+			<div class="slide--image">
+				<a href="{{ settings[link] }}" title="{{ settings[alt] | strip_html | escape}}" aria-label="{{ settings[alt] | strip_html | escape}}">
+					<picture>
+						<source media="(max-width: 767px)" class="owl-lazy" data-srcset="{{ image_mb | asset_url}}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="/>
+						<source media="(min-width: 768px)" class="owl-lazy" data-srcset="{{image | asset_url}}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="/>
+
+						<img class="owl-lazy" data-src="{{ image | asset_url }}" 
+								 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt="{{ settings[alt] | strip_html | escape }}"/>
+					</picture>
+				</a>
+			</div>
+		</div>
+		{%- endif -%}
+		{%- endfor -%}
+	</div> 
+</div>
