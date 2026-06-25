@@ -1,0 +1,278 @@
+/*
+ * ============================================================
+ *  LACADEV CUSTOM STYLES - NHAKHOAOCEAN
+ *  File: lacadev-custom.scss.liquid
+ *  Mục đích: Tùy chỉnh giao diện riêng, dễ tìm và sửa
+ *  Cập nhật: Thêm styles vào đây, KHÔNG sửa file theme gốc
+ * ============================================================
+ */
+
+/* ===== OCEAN DENTAL CLINIC - HEADER CUSTOM ===== */
+
+/* ── 1. Màu nền header ── */
+.mainHeader.mainHeader_temp02 .mainHeader-middle {
+	background: #0B4090 !important;
+}
+
+/* ── 2. Ẩn thông tin liên hệ (số điện thoại / giờ làm việc) ── */
+.mainHeader.mainHeader_temp02 .wrap-contact {
+	display: none !important;
+}
+
+/* ── 3. Logo image ── */
+.mainHeader.mainHeader_temp02 .header-wrap-logo .logoimg {
+	max-height: 64px !important;
+	height: auto !important;
+	width: auto !important;
+	display: block;
+	object-fit: contain;
+}
+/* Fallback text logo màu trắng */
+.mainHeader.mainHeader_temp02 .header-wrap-logo h1 a,
+.mainHeader.mainHeader_temp02 .header-wrap-logo .wrap-logo > a:not(:has(img)) {
+	color: #ffffff !important;
+	font-size: 20px;
+	font-weight: 800;
+	letter-spacing: 1px;
+}
+
+/* ── 4. Nav links — trắng, in hoa ── */
+.mainHeader.mainHeader_temp02 .header-wrap-menu .menuList-main > li > a {
+	color: #ffffff !important;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 13px;
+	letter-spacing: 0.6px;
+}
+.mainHeader.mainHeader_temp02 .header-wrap-menu .menuList-main > li > a svg {
+	fill: #ffffff !important;
+}
+
+/* ── 5. Ẩn social icons mặc định ── */
+.mainHeader.mainHeader_temp02 .header-social {
+	display: none !important;
+}
+
+/* ── 6. Ẩn search / account / cart trên desktop ── */
+@media (min-width: 992px) {
+	.mainHeader.mainHeader_temp02 .header-action_search,
+	.mainHeader.mainHeader_temp02 .header-action_account,
+	.mainHeader.mainHeader_temp02 .header-action_cart {
+		display: none !important;
+	}
+}
+
+/* ── 7. Hamburger icon trắng (mobile) ── */
+.mainHeader.mainHeader_temp02 .header-wrap-iconav .header-action .header-action-item.header-action_menu .box-icon .hamburger-menu .bar,
+.mainHeader.mainHeader_temp02 .header-wrap-iconav .header-action .header-action-item.header-action_menu .box-icon .hamburger-menu .bar:after,
+.mainHeader.mainHeader_temp02 .header-wrap-iconav .header-action .header-action-item.header-action_menu .box-icon .hamburger-menu .bar:before {
+	background: #ffffff !important;
+}
+
+/* Cart icon trắng trên mobile */
+@media (max-width: 991px) {
+	.mainHeader.mainHeader_temp02 .header-action_cart .header-action__link .box-icon svg {
+		fill: #ffffff !important;
+	}
+}
+
+/* ────────────────────────────────────────────────────────────
+   DESKTOP LAYOUT — tất cả trên 1 hàng + bo cong logo
+   ──────────────────────────────────────────────────────────── */
+@media (min-width: 992px) {
+
+	/* Cho phép bo cong tràn ra ngoài header */
+	.mainHeader--height,
+	.mainHeader.mainHeader_temp02,
+	.mainHeader.mainHeader_temp02 .mainHeader-middle {
+		overflow: visible !important;
+	}
+
+	/* Flex container: 1 hàng ngang, căn giữa dọc */
+	.mainHeader.mainHeader_temp02 .flex-container-header {
+		flex-wrap: nowrap !important;
+		align-items: center !important;
+		flex-direction: row !important;
+		gap: 0;
+	}
+
+	/* Logo — cố định width, không co giãn */
+	.mainHeader.mainHeader_temp02 .header-wrap-logo {
+		flex: 0 0 auto !important;
+		width: auto !important;
+		max-width: none !important;
+		padding-top: 12px !important;
+		padding-bottom: 12px !important;
+		padding-right: 20px !important;
+		z-index: 2;
+	}
+
+	/* ── Bo cong phía dưới vùng logo (ocean wave) ──
+	   bottom: -48px + height: 48px → element.top = logo_wrapper.bottom = header bottom
+	   y=0 trong path = đáy header. Shape:
+	     Phải (x=290): y=0 → ngay đáy header, không tràn xuống
+	     Q(230,38): điểm uốn dip sâu nhất ~34px dưới header
+	     Q end (160,28): 28px dưới header
+	     T(0,36): S-curve về trái → trái cùng 36px dưới header
+	   Kết quả: sóng ocean wave từ phải (0px) → cong sâu → lên → trái (36px).
+	   ──────────────────────────────────────────────────────────── */
+	.mainHeader.mainHeader_temp02 .header-wrap-logo::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 48px;
+		background: #0B4090;
+		clip-path: path('M 0 0 L 415 0 L 440 0 Q 300 20, 200 35 T 0 20 Z');
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	/* Nav — chiếm phần giữa */
+	.mainHeader.mainHeader_temp02 .header-wrap-menu {
+		flex: 1 1 auto !important;
+		min-width: 0;
+		display: flex !important;
+		align-items: center;
+		align-self: stretch !important;
+		justify-content: center;
+	}
+
+	/* Action — sát phải */
+	.mainHeader.mainHeader_temp02 .header-wrap-action {
+		flex: 0 0 auto !important;
+		width: auto !important;
+		align-self: center !important;
+		padding-left: 8px !important;
+	}
+}
+
+/* ────────────────────────────────────────────────────────────
+   NÚT HOME trong nav
+   ──────────────────────────────────────────────────────────── */
+.ocean-nav-home-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	/* Màu xanh nhạt hơn header một chút — nổi bật */
+	background: #3a7bd5;
+	border-radius: 12px;
+	width: 48px;
+	height: 46px;
+	text-decoration: none !important;
+	flex-shrink: 0;
+	margin-right: 12px;
+	align-self: center;
+	transition: background 0.2s, transform 0.15s;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.ocean-nav-home-btn:hover {
+	background: #2a6bc5;
+	transform: translateY(-1px);
+}
+.ocean-nav-home-btn svg {
+	width: 24px;
+	height: 24px;
+	fill: #ffffff;
+	display: block;
+}
+
+@media (max-width: 991px) {
+	.ocean-nav-home-btn { display: none; }
+}
+
+/* ────────────────────────────────────────────────────────────
+   NÚT FACEBOOK
+   ──────────────────────────────────────────────────────────── */
+.ocean-btn-facebook {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: #ffffff;
+	border-radius: 24px;
+	padding: 8px 16px;
+	text-decoration: none !important;
+	color: #1877F2 !important;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 1.2;
+	white-space: nowrap;
+	transition: box-shadow 0.2s, transform 0.15s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.ocean-btn-facebook:hover {
+	box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+	transform: translateY(-1px);
+	color: #1877F2 !important;
+	text-decoration: none !important;
+}
+/* Facebook logo icon — circular như mẫu */
+.ocean-btn-facebook .fb-icon-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	background: #1877F2;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+.ocean-btn-facebook .fb-icon-wrap svg {
+	width: 12px;
+	height: 12px;
+	fill: #ffffff;
+}
+/* Fallback nếu không có .fb-icon-wrap */
+.ocean-btn-facebook > svg {
+	width: 20px;
+	height: 20px;
+	fill: #1877F2;
+	flex-shrink: 0;
+}
+
+/* ────────────────────────────────────────────────────────────
+   NÚT ĐẶT LỊCH HẸN — có border như mẫu
+   ──────────────────────────────────────────────────────────── */
+.ocean-btn-appointment {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	background: #ffffff;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	border-radius: 24px;
+	padding: 6px 14px;
+	text-decoration: none !important;
+	color: #0B4090 !important;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 1.2;
+	white-space: nowrap;
+	transition: box-shadow 0.2s, transform 0.15s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.ocean-btn-appointment:hover {
+	box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+	transform: translateY(-1px);
+	color: #0B4090 !important;
+	text-decoration: none !important;
+}
+.ocean-btn-appointment svg {
+	width: 18px;
+	height: 18px;
+	fill: #0B4090;
+	flex-shrink: 0;
+}
+
+/* ── Container 2 nút action ── */
+.ocean-header-buttons {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+@media (max-width: 991px) {
+	.ocean-header-buttons { display: none; }
+}
+
+/* ===== END OCEAN DENTAL CLINIC - HEADER CUSTOM ===== */

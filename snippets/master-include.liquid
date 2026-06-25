@@ -16,6 +16,8 @@
 {%- include 'plugins-css' -%}
 <link rel="preload stylesheet" href="{{ 'animate.min.css' | asset_url }}" as="style">
 <link rel="preload stylesheet" href="{{ 'style-all.scss.css' | asset_url }}" as="style">
+<!--+++++++++++++ LACADEV CUSTOM +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<link rel="preload stylesheet" href="{{ 'lacadev-custom.scss.css' | asset_url }}" as="style">
 {%- if template contains 'customers' -%} <link rel="preload stylesheet" href="{{ 'customer-style.scss.css' | asset_url }}" as="style"> {%- endif -%}
 {%- if template == 'page.landing-page-01' -%} <link rel="preload stylesheet" href="{{ 'style-ldpage-01.scss.css' | asset_url }}" as="style"> {%- endif -%}
 {%if template == 'index'%}
