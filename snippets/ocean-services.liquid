@@ -1,0 +1,34 @@
+<section class="ocean-featured-services">
+  <div class="container">
+    {%if settings.ocean_services_title != ''%}
+    <div class="ocean-section-head text-center">
+      <h2 class="ocean-section-title">{{settings.ocean_services_title}}</h2>
+      <div class="ocean-wave-divider" aria-hidden="true">
+        <svg viewBox="0 0 200 24" width="200" height="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 12 Q25 0 50 12 T100 12 T150 12 T200 12" stroke="#0B4090" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    {%endif%}
+    <div class="ocean-services-grid">
+      {%for i in (1..8)%}
+        {%capture show%}show_ocean_service_{{i}}{%endcapture%}
+        {%capture img%}ocean_service_{{i}}_img.jpg{%endcapture%}
+        {%capture title%}ocean_service_{{i}}_title{%endcapture%}
+        {%capture desc%}ocean_service_{{i}}_desc{%endcapture%}
+        {%capture link%}ocean_service_{{i}}_link{%endcapture%}
+        {%if settings[show]%}
+        <a href="{{settings[link] | default: '/'}}" class="ocean-svc-card">
+          <div class="ocean-svc-icon" aria-hidden="true">
+            <img src="{{ img | asset_url }}" alt="" loading="lazy" />
+          </div>
+          <div class="ocean-svc-body">
+            {%if settings[title] != ''%}<h3 class="ocean-svc-title">{{settings[title]}}</h3>{%endif%}
+            {%if settings[desc] != ''%}<p class="ocean-svc-desc">{{settings[desc]}}</p>{%endif%}
+          </div>
+        </a>
+        {%endif%}
+      {%endfor%}
+    </div>
+  </div>
+</section>

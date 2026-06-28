@@ -1,0 +1,110 @@
+{%assign ocr_count = 0%}
+{%for i in (1..5)%}{%capture _show%}show_ocean_review_{{i}}{%endcapture%}{%if settings[_show]%}{%assign ocr_count = ocr_count | plus: 1%}{%endif%}{%endfor%}
+
+{%if ocr_count > 0%}
+<section class="ocean-reviews-section">
+  <div class="container">
+    <div class="ocean-reviews-wrap">
+
+      <!-- Left: text content + slider -->
+      <div class="ocean-reviews-left">
+        <span class="ocr-quote-icon" aria-hidden="true">&#10077;</span>
+        {%if settings.ocean_reviews_title != ''%}
+        <h2 class="ocr-heading">{{settings.ocean_reviews_title}}</h2>
+        {%endif%}
+
+        <div class="ocr-slides" aria-live="polite">
+          {%assign si = 0%}
+          {%for i in (1..5)%}
+            {%capture _show%}show_ocean_review_{{i}}{%endcapture%}
+            {%capture _content%}ocean_review_{{i}}_content{%endcapture%}
+            {%capture _name%}ocean_review_{{i}}_name{%endcapture%}
+            {%if settings[_show]%}
+            <div class="ocr-slide{% if si == 0 %} is-active{% endif %}" data-idx="{{si}}">
+              {%if settings[_content] != ''%}
+              <p class="ocr-text">{{settings[_content] | newline_to_br}}</p>
+              {%endif%}
+              <p class="ocr-stars" aria-label="5 sao">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+              {%if settings[_name] != ''%}
+              <p class="ocr-author">&#8211; {{settings[_name]}}</p>
+              {%endif%}
+            </div>
+            {%assign si = si | plus: 1%}
+            {%endif%}
+          {%endfor%}
+        </div>
+
+        {%if ocr_count > 1%}
+        <div class="ocr-dots" role="tablist" aria-label="Chọn đánh giá">
+          {%assign di = 0%}
+          {%for i in (1..5)%}
+            {%capture _show%}show_ocean_review_{{i}}{%endcapture%}
+            {%if settings[_show]%}
+            <button class="ocr-dot{% if di == 0 %} is-active{% endif %}" data-dot="{{di}}" role="tab" aria-label="Đánh giá {{di | plus: 1}}"></button>
+            {%assign di = di | plus: 1%}
+            {%endif%}
+          {%endfor%}
+        </div>
+        {%endif%}
+
+        {%if settings.ocean_reviews_btn_text != ''%}
+        <a href="{{settings.ocean_reviews_btn_link | default: '#'}}" class="ocr-cta-btn">
+          {{settings.ocean_reviews_btn_text}} &#8594;
+        </a>
+        {%endif%}
+      </div>
+
+      <!-- Right: image per review -->
+      <div class="ocean-reviews-right">
+        {%assign ii = 0%}
+        {%for i in (1..5)%}
+          {%capture _show%}show_ocean_review_{{i}}{%endcapture%}
+          {%capture _img%}ocean_review_{{i}}_img.jpg{%endcapture%}
+          {%capture _name%}ocean_review_{{i}}_name{%endcapture%}
+          {%if settings[_show]%}
+          <div class="ocr-img-slide{% if ii == 0 %} is-active{% endif %}" data-img="{{ii}}">
+            <img src="{{ _img | asset_url }}" alt="{{settings[_name]}}" loading="lazy" />
+          </div>
+          {%assign ii = ii | plus: 1%}
+          {%endif%}
+        {%endfor%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.querySelector('.ocean-reviews-section');
+  if (!root) return;
+  var slides = root.querySelectorAll('.ocr-slide');
+  var dots   = root.querySelectorAll('.ocr-dot');
+  var imgs   = root.querySelectorAll('.ocr-img-slide');
+  if (slides.length <= 1) return;
+
+  var cur = 0;
+
+  function activate(list, n) {
+    if (list[cur]) list[cur].classList.remove('is-active');
+    if (list[n])   list[n].classList.add('is-active');
+  }
+
+  function goTo(n) {
+    var next = (n + slides.length) % slides.length;
+    [slides, dots, imgs].forEach(function (list) { activate(list, next); });
+    cur = next;
+  }
+
+  var timer = setInterval(function () { goTo(cur + 1); }, 5000);
+
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      clearInterval(timer);
+      goTo(i);
+      timer = setInterval(function () { goTo(cur + 1); }, 5000);
+    });
+  });
+}());
+</script>
+{%endif%}

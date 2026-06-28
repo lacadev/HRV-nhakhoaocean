@@ -1,8 +1,10 @@
 {%if settings.home_slider_show%}{%include 'homepage-slider'%}{%endif%}
+{%if settings.show_ocean_services%}{%include 'ocean-services'%}{%endif%}
+{%if settings.show_ocean_reviews%}{%include 'ocean-reviews'%}{%endif%}
 {%if settings.show_home_form_1%}
 <section class="section-home-form1">
 	<div class="container">
-		<div class="row align-items-center row-top">
+		<div class="row align-items-center">
 			<div class="col-lg-6 col-12">
 				<div class="form-left">
 					<p class="form-desc">{{settings.home_form_1_desc}}</p>
