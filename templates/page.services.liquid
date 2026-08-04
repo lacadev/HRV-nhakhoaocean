@@ -13,10 +13,11 @@
 				{%capture img%}service_1_{{i}}_img.jpg{%endcapture%}
 				{%capture title%}service_1_{{i}}_title{%endcapture%}
 				{%capture desc%}service_1_{{i}}_desc{%endcapture%}
+				{%capture link%}service_1_{{i}}_link{%endcapture%}
 				{%if settings[show]%}
 				{%assign time3 = time3 | plus: 0.2%}
 				<div class="col-lg-3 col-12 wow fadeInUp" data-wow-delay="{{time3}}s">
-					<div class="service-item">
+					{%if settings[link] != ''%}<a href="{{settings[link]}}" class="service-item">{%else%}<div class="service-item">{%endif%}
 						<div class="item-img">
 							<img src="{{ img | asset_url}}" alt="{{settings[title]}}" />
 						</div>
@@ -24,7 +25,7 @@
 							<h3 class="title">{{settings[title]}}</h3>
 							{%if settings[desc] != ''%}<p class="desc">{{settings[desc]}}</p>{%endif%}
 						</div>
-					</div>
+					{%if settings[link] != ''%}</a>{%else%}</div>{%endif%}
 				</div>
 				{%endif%}
 				{%endfor%}
